@@ -23,6 +23,7 @@ function memoize(fn) {
 
 /*
 이건 아예 감이 안 왔어서 베껴넣기...
+
 cache 객체에 들어온 값(args)를 속성으로 해서 fn() 결과값을 넣고,
 만약 cache에 해당 속성이 있을 경우 함수를 호출하지 않고 바로 cache[key]를 리턴.
 10일차의 Allow One Function Calls랑 비슷한데 들어오는 값이 바뀔 수 있으니
