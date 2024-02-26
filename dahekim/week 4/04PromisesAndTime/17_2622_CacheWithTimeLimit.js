@@ -63,7 +63,7 @@ TimeLimitedCache.prototype.count = function() {
 
 
 /**
- * @param {Object} cache
+ * @param {Object} cached
  * @param {number} currentTime
  * @return {boolean} 
  */
