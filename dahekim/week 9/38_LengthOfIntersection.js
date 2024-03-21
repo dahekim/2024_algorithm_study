@@ -3,7 +3,7 @@
 
 function solution(lines) {
         let answer = 0;
-        let arr = []; // 선분 저장할 배열 
+        let arr = []; // 모든 선분들을 저장할 배열 (lines에 포함된 모든 선분의 길이를 1 길이 단위로, '시작점 끝점'의 형태로 넣는다. ) 
         
         // 각 선들을 순회
         for (let line of lines) {
@@ -11,18 +11,14 @@ function solution(lines) {
                 arr.push(`${i - 1} ${i}`);
             }
         }
-        
-        let intersection = Array.from(new Set(arr)); // 중복 제거
+
+        // 중복 제거, 실제로 겹치는 선분이 있을 경우 그 부분만 제거되어 intersection 배열에 담긴다. 
+        let intersection = Array.from(new Set(arr)); 
         
         for (let l of intersection) {
-            let count = 0;
-            for (let i of arr) {
-                if (i === l) {
-                    count++;
-                }
-            }
-            if (count > 1) {
-                answer += 1;
+            // arr과 intersection을 비교하여, arr의 요소와 intersection의 요소가 일치하는 경우 (=중복 요소가 1개 이상인 경우) 길이를 1씩 더해준다.
+            if (arr.filter(line => line === l).length > 1) {
+                answer++;
             }
         }
         
