@@ -27,12 +27,10 @@
 //     })
 //     return answer;
 // }
-
 function solution(user_id, banned_id) {
     var answer = 0;
     let banObj = new Map()
-    let index = 0
-    banned_id.forEach(e => {
+    banned_id.forEach((e,i) => {
         let arr = user_id.filter(id => {
             if(e.length !== id.length){
                 return false
@@ -40,28 +38,33 @@ function solution(user_id, banned_id) {
                 return new RegExp(e.replace(/\*/g,'[a-z0-9]{1}')).test(id)
             }
         })
-        banObj.set(`${e}${index}`,arr)
-        index++
+        banObj.set(`${e}${i}`,arr)
     })
+    
+    
     const combinations = [...banObj.values()];
     const n = combinations.length;
+//     combinations > 각 banned_id에 맞는 이름 목록. n > 제재타입 목록(banned_id길이)
     const result = new Set();
     dfs("", 0);
-
+    console.log(result)
     return result.size;
     
     function dfs(usrStr, level) {
         if (level === n) {
+//             아이디목록 세트가 완성되었을 경우(banned_id를 다 채움)
             const usrPair = [...new Set(usrStr.split(","))];
+//             중복된 아이디를 삭제해서 배열을 만들어본다
             if (usrPair.length !== n) return;
-            
             result.add(usrPair.sort().join());
+//             중복아이디가 뽑힌 케이스는 리턴해버리고, 중복 없는 경우만 result에 추가
             return;
         }
         for (const id of combinations[level]) {
-            // 이거 왜이러는지 아시는분...? 그냥 id로 하면 안되더라구요.
             if (usrStr.includes(id + ",")) continue;
+//             이미 포함되어있음>건너뜀
             dfs(usrStr + (usrStr.length === 0 ? "" : ",") + id, level + 1);
+//             아닐경우 ',아이디' 붙이기를 반복. 레벨을 +1추가해서 다음 아이디세트에서 뽑을 수 있게 한다
         }
     }
     return answer;
