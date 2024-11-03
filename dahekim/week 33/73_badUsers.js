@@ -30,13 +30,9 @@ function solution(user_id, banned_id) {
             });
         });
         
-    return result;
-    
-    }
-    
+    return result;    
+    }    
     const caseList = getCases(user_id, banned_id.length);
-    
-
     for (const banned_user of caseList) {
         let isValid = true;
         
