@@ -1,0 +1,23 @@
+function solution(tickets) {
+    var answer = [];
+    let useCheck = Array.from({length:tickets.length},() => false)
+    
+    const dfs = (route) => {
+        if(route.length == tickets.length +1){
+            answer.push(route)
+        }else{
+            for(const i in tickets){
+                if(useCheck[i] === false){
+                    const [start,end] = tickets[i]
+                    if(route[route.length-1] === start){
+                       useCheck[i] = true 
+                        dfs([...route,end])
+                        useCheck[i] = false
+                    } 
+                }
+            }
+        }
+    }
+    dfs(["ICN"])
+    return answer.sort()[0];
+}
